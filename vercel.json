@@ -1,13 +1,24 @@
 {
-  "outputDirectory": "labor-breathing",
   "rewrites": [
     {
-      "source": "/labor-breathing/interactive-book",
-      "destination": "/interactive-book.html"
+      "source": "/",
+      "destination": "/active-birth/active-birth-interactive-guide.html"
     },
     {
-      "source": "/",
-      "destination": "/interactive-book.html"
+      "source": "/active-birth",
+      "destination": "/active-birth/active-birth-interactive-guide.html"
+    },
+    {
+      "source": "/labor-breathing",
+      "destination": "/labor-breathing/interactive-book.html"
+    },
+    {
+      "source": "/labor-breathing/interactive-book",
+      "destination": "/labor-breathing/interactive-book.html"
+    },
+    {
+      "source": "/interactive-book",
+      "destination": "/labor-breathing/interactive-book.html"
     }
   ]
 }
