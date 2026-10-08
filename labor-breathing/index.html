@@ -1,0 +1,655 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#3f6c75">
+<meta name="description" content="Labor Breathing: teknik panduan napas untuk kehamilan dan persalinan. Smilebirth, oleh Bidan Cahyaning Puji Astuti.">
+<title>Labor Breathing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Quicksand:wght@500;600;700&display=swap">
+<style>
+[hidden]{display:none!important}
+img{max-width:100%}
+
+/* Layout: aplikasi satu kolom (maks 720px). Beranda = pertanyaan "Apa yang Bunda rasakan?" + dua pintu; kartu keluhan membuka halaman detail berisi pemandu napas bersuara. Warna dari identitas Smilebirth (teal + coral di atas blush). */
+:root{
+  --bg:#fdf1ef; --page:#ffffff; --ink:#24393e; --muted:#5d7277;
+  --teal:#3f6c75; --teal-soft:#e3eef0; --coral:#e47a67; --coral-soft:#fde3dd;
+  --line:#dbe5e7; --ok:#2f8a63; --ok-soft:#e1f3ea; --warn:#b14f2b; --warn-soft:#fbe6da;
+  --on-teal:#ffffff;
+  --in:#3a968b; --hold:#d4952a; --out:#e06c58; --pause:#8a84b6;
+  --shadow:0 1px 0 rgba(63,108,117,.06),0 12px 28px -20px rgba(63,108,117,.55);
+  --display:"Baloo 2","Nunito","Trebuchet MS",system-ui,sans-serif;
+  --body:"Quicksand","Nunito","Segoe UI",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#142125; --page:#1c2d32; --ink:#e9f1f1; --muted:#a6bbbe; --teal:#8cc4cd; --teal-soft:#24414a;
+  --coral:#f29a88; --coral-soft:#4a2c28; --line:#2e464d; --ok:#7fd4ac; --ok-soft:#1d3d31; --warn:#f3a17f; --warn-soft:#46291f;
+  --on-teal:#10262b; --in:#6fcfbf; --hold:#f0bd5a; --out:#f29a88; --pause:#b3aee0; --shadow:0 12px 28px -20px rgba(0,0,0,.85); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#142125; --page:#1c2d32; --ink:#e9f1f1; --muted:#a6bbbe; --teal:#8cc4cd; --teal-soft:#24414a;
+  --coral:#f29a88; --coral-soft:#4a2c28; --line:#2e464d; --ok:#7fd4ac; --ok-soft:#1d3d31; --warn:#f3a17f; --warn-soft:#46291f;
+  --on-teal:#10262b; --in:#6fcfbf; --hold:#f0bd5a; --out:#f29a88; --pause:#b3aee0; --shadow:0 12px 28px -20px rgba(0,0,0,.85); color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16.5px;line-height:1.65;font-weight:500;padding-inline:16px;padding-block:0 110px}
+h1,h2,h3,h4{font-family:var(--display);line-height:1.15;text-wrap:balance;margin:0;color:var(--teal);font-weight:800}
+p{margin:0}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--coral);outline-offset:2px}
+.app{max-width:720px;margin:0 auto;display:grid;gap:22px}
+
+/* bar atas */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;margin-inline:-16px;padding:10px 16px;background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(8px)}
+.bar-in{max-width:720px;margin:0 auto;display:flex;align-items:center;gap:10px}
+.brand{font-family:var(--display);font-weight:800;font-size:18px;color:var(--teal);white-space:nowrap;background:none;border:0;padding:0}
+.brand b{color:var(--coral)}
+.bar .sp{flex:1}
+.toggle{display:inline-flex;align-items:center;gap:8px;border:1.5px solid var(--line);background:var(--page);border-radius:99px;padding:5px 12px 5px 6px;font-size:14px;font-weight:700}
+.toggle .sw{width:30px;height:18px;border-radius:99px;background:var(--line);position:relative;transition:background .2s}
+.toggle .sw::after{content:"";position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:var(--page);transition:transform .2s}
+.toggle[aria-pressed="true"]{border-color:var(--coral)}
+.toggle[aria-pressed="true"] .sw{background:var(--coral)}
+.toggle[aria-pressed="true"] .sw::after{transform:translateX(12px)}
+
+/* beranda */
+.hero{display:grid;gap:10px;padding-top:14px}
+.kicker{font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--coral);font-weight:700}
+.hero h1{font-size:clamp(34px,7vw,50px);letter-spacing:-.01em}
+.hero .sub{font-family:var(--display);font-weight:600;font-size:clamp(18px,3.4vw,22px);color:var(--ink);line-height:1.3}
+.byline{font-size:13.5px;color:var(--muted)}
+.ask{background:var(--page);border-radius:24px;padding:20px;box-shadow:var(--shadow);border:1px solid var(--line);display:grid;gap:14px}
+.ask h2{font-size:24px}
+.search{width:100%;border:1.5px solid var(--line);background:var(--bg);border-radius:14px;padding:12px 14px}
+.doors{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.door{border:0;text-align:left;border-radius:20px;padding:18px;display:grid;gap:4px;min-width:0}
+.door.h{background:var(--coral-soft)}
+.door.s{background:var(--teal-soft)}
+.door.c{background:color-mix(in srgb,var(--pause) 20%,var(--page))}
+.door strong{font-family:var(--display);font-size:22px;color:var(--teal);line-height:1.1}
+.door span{font-size:14px;color:var(--muted);line-height:1.4}
+.door .ct{font-size:13px;font-weight:700;color:var(--coral)}
+.results{display:grid;gap:8px}
+.basic{display:flex;gap:14px;align-items:center;background:var(--teal);color:var(--on-teal);border:0;border-radius:20px;padding:16px 18px;text-align:left}
+.basic .ring{flex:none;width:46px;height:46px;border-radius:50%;border:3px solid currentColor;display:grid;place-items:center;font-family:var(--display);font-weight:800}
+.basic strong{font-family:var(--display);font-size:19px;display:block;line-height:1.2}
+.basic span{font-size:14px;opacity:.9;line-height:1.4;display:block}
+.sec-h{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.sec-h h2{font-size:24px}
+.sec-h .lnk{border:0;background:none;color:var(--coral);font-weight:700;font-size:14px;padding:0}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1.5px solid var(--line);background:var(--page);border-radius:99px;padding:7px 14px;font-weight:700;font-size:14.5px}
+.chip:hover{border-color:var(--teal)}
+.chip.fav{border-color:var(--coral)}
+
+/* daftar kartu */
+.list{display:grid;gap:10px}
+.item{display:grid;grid-template-columns:1fr auto;gap:4px 12px;align-items:center;text-align:left;width:100%;background:var(--page);border:1px solid var(--line);border-radius:18px;padding:14px 16px;box-shadow:var(--shadow)}
+.item strong{font-family:var(--display);font-size:19px;color:var(--ink);line-height:1.2}
+.item .f{grid-column:1;font-size:14px;color:var(--muted);line-height:1.4}
+.item .e{grid-column:1;font-size:12.5px;font-weight:700;color:var(--teal);letter-spacing:.02em}
+.item .pt{grid-row:1 / span 3;grid-column:2;font-family:var(--display);font-weight:800;color:var(--coral);font-size:17px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.item.stage{border-left:6px solid var(--teal)}
+.empty{color:var(--muted);text-align:center;padding:12px}
+
+/* detail */
+.back{justify-self:start;border:1.5px solid var(--teal);background:var(--teal-soft);color:var(--teal);font-weight:700;padding:7px 16px;border-radius:99px;font-size:15px;margin-top:8px}
+.back:hover{background:var(--teal);color:var(--on-teal)}
+.navbot{position:fixed;left:0;right:0;bottom:0;z-index:15;padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px));background:color-mix(in srgb,var(--page) 94%,transparent);backdrop-filter:blur(8px);border-top:1px solid var(--line)}
+.navbot-in{max-width:720px;margin:0 auto;display:flex;gap:10px}
+.nb-back{border:1.5px solid var(--teal);background:var(--page);color:var(--teal);font-weight:700;border-radius:99px;padding:11px 18px;white-space:nowrap}
+.nb-home{flex:1;border:0;background:var(--coral);color:#fff;font-weight:700;border-radius:99px;padding:11px 18px;font-size:16px}
+.d-head{display:grid;gap:8px}
+.d-head .row{display:flex;gap:10px;align-items:flex-start;justify-content:space-between}
+.d-head h1{font-size:clamp(30px,6vw,42px)}
+.star{flex:none;border:1.5px solid var(--line);background:var(--page);border-radius:99px;padding:6px 12px;font-size:14px;font-weight:700}
+.star[aria-pressed="true"]{border-color:var(--coral);background:var(--coral-soft)}
+.est{display:inline-block;justify-self:start;font-size:13px;font-weight:700;color:var(--teal);background:var(--teal-soft);padding:3px 12px;border-radius:99px}
+.intro{font-size:17px;max-width:62ch}
+.card{background:var(--page);border:1px solid var(--line);border-radius:22px;padding:18px;box-shadow:var(--shadow);display:grid;gap:12px}
+.tabs{display:flex;gap:6px;background:var(--bg);padding:4px;border-radius:99px;justify-self:start;flex-wrap:wrap}
+.tabs button{border:0;background:none;border-radius:99px;padding:6px 14px;font-weight:700;font-size:14px;color:var(--muted)}
+.tabs button[aria-selected="true"]{background:var(--page);color:var(--teal);box-shadow:0 1px 4px rgba(0,0,0,.12)}
+.nap-h{display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:wrap}
+.nap-h h2{font-size:24px;color:var(--ink)}
+.pat{font-family:var(--display);font-weight:800;font-size:22px;color:var(--coral);font-variant-numeric:tabular-nums}
+.pat small{font-family:var(--body);font-size:12.5px;color:var(--muted);font-weight:700;display:block;text-align:right;letter-spacing:.02em}
+.steps{margin:0;padding-left:1.25em;display:grid;gap:6px}
+
+/* pemandu */
+.pacer{display:grid;gap:12px}
+.stage-box{position:relative;height:250px;display:grid;place-items:center;border-radius:20px;background:radial-gradient(circle at 50% 50%,var(--coral-soft),transparent 70%)}
+.orb{--ph:var(--coral);width:116px;height:116px;border-radius:50%;background-color:var(--ph);background-image:radial-gradient(circle at 35% 30%,rgba(255,255,255,.7),transparent 62%);box-shadow:0 0 0 14px color-mix(in srgb,var(--ph) 18%,transparent);transform:scale(1);transition:transform 1s ease-in-out,background-color .5s,box-shadow .5s}
+.orb[data-ph="in"]{--ph:var(--in)}.orb[data-ph="hold"]{--ph:var(--hold)}.orb[data-ph="out"]{--ph:var(--out)}.orb[data-ph="pause"]{--ph:var(--pause)}
+.segs{display:flex;gap:4px;height:14px}
+.seg{border-radius:99px;opacity:.28;transition:opacity .3s,transform .3s}
+.seg.on{opacity:1;transform:scaleY(1.25)}
+.seg.in,.lg.in i{background:var(--in)}.seg.hold,.lg.hold i{background:var(--hold)}.seg.out,.lg.out i{background:var(--out)}.seg.pause,.lg.pause i{background:var(--pause)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;justify-content:center;font-size:13.5px;font-weight:700;color:var(--muted)}
+.lg{display:inline-flex;align-items:center;gap:6px}
+.lg i{width:12px;height:12px;border-radius:50%;display:inline-block}
+.pat .c-in{color:var(--in)}.pat .c-hold{color:var(--hold)}.pat .c-out{color:var(--out)}.pat .c-pause{color:var(--pause)}
+.tris{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.tri-t{border:1.5px solid var(--line);background:var(--page);border-radius:18px;padding:14px;text-align:left;display:grid;gap:2px;min-width:0}
+.tri-t:hover{border-color:var(--coral)}
+.tri-t strong{font-family:var(--display);font-size:20px;color:var(--teal);line-height:1.1}
+.tri-t span{font-size:13px;color:var(--muted);line-height:1.35}
+.tri-t .wk{font-weight:700;color:var(--coral)}
+.door.wide{grid-column:1 / -1}
+.todo{display:grid;gap:8px}
+.todo-i{display:flex;align-items:center;gap:12px;background:var(--bg);border-radius:16px;padding:10px 12px}
+.todo-i input{width:22px;height:22px;accent-color:var(--teal);flex:none}
+.todo-i .tx{flex:1;min-width:0;line-height:1.35}
+.todo-i .tx b{font-family:var(--display);font-size:17px;display:block}
+.todo-i .tx small{color:var(--muted);font-size:13px}
+.todo-i .mini{flex:none;border:0;background:var(--teal);color:var(--on-teal);border-radius:99px;padding:6px 14px;font-weight:700;font-size:14px}
+.prog-t{font-size:14px;font-weight:700;color:var(--teal)}
+.durhelp{background:var(--bg);border-radius:14px;padding:12px 14px;font-size:14.5px;line-height:1.5;display:grid;gap:6px}
+.durhelp b{color:var(--teal)}
+.durhelp .tip{color:var(--muted);font-size:13.5px}
+.orb-txt{position:absolute;text-align:center;color:#fff;font-family:var(--display);pointer-events:none;text-shadow:0 1px 6px rgba(0,0,0,.25)}
+.orb-txt .c{font-size:40px;font-weight:800;line-height:1;font-variant-numeric:tabular-nums}
+.orb-txt .w{font-size:17px;font-weight:700;line-height:1.1;max-width:150px}
+.ctrl{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center}
+.btn{border:0;background:var(--coral);color:#fff;font-weight:700;padding:11px 22px;border-radius:99px;font-size:16px}
+.btn.alt{background:var(--teal);color:var(--on-teal)}
+.btn.ghost{background:transparent;color:var(--teal);border:1.5px solid var(--teal)}
+.sel{border:1.5px solid var(--line);background:var(--page);border-radius:99px;padding:8px 12px;font-size:14px;font-weight:700}
+.status{text-align:center;font-size:14px;color:var(--muted);font-variant-numeric:tabular-nums}
+canvas.wave{width:100%;height:64px;display:block}
+.wave-l{text-align:center;font-family:var(--display);font-weight:700;color:var(--teal)}
+.feel{background:var(--bg);border-radius:16px;padding:14px;display:grid;gap:10px;text-align:center}
+.feel p{font-weight:700}
+.feel .chips{justify-content:center}
+.feel-msg{font-size:15px;color:var(--teal);font-weight:600}
+
+.box{border-radius:18px;padding:16px 18px;display:grid;gap:8px}
+.box h3{font-size:19px}
+.box ul{margin:0;padding-left:1.2em;display:grid;gap:5px}
+.box.tips{background:var(--teal-soft)}
+.box.flag{background:var(--warn-soft)}
+.box.flag h3{color:var(--warn)}
+.box.partner{background:var(--coral-soft)}
+.box.partner li{font-family:var(--display);font-size:19px;font-weight:600;line-height:1.35}
+.basic-grid{display:grid;gap:12px}
+
+.foot{font-size:13.5px;color:var(--muted);display:grid;gap:8px;border-top:1px solid var(--line);padding-top:18px}
+.cta{background:var(--teal);color:var(--on-teal);border-radius:22px;padding:20px;display:grid;gap:6px}
+.cta h3{color:var(--on-teal);font-size:21px}
+
+@media (prefers-reduced-motion: reduce){.orb{transition:none!important}}
+@media (max-width:520px){.doors{grid-template-columns:1fr}.tris{grid-template-columns:1fr}.toggle .lbl{display:none}.toggle{padding-right:6px}}
+</style>
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}</style>
+</head>
+<body>
+<header class="bar">
+  <div class="bar-in">
+    <button class="brand" id="home" aria-label="Kembali ke beranda">smile<b>birth</b></button>
+    <span class="sp"></span>
+    <button class="toggle" id="partnerToggle" aria-pressed="false"><span class="sw"></span><span class="lbl">Mode pendamping</span></button>
+  </div>
+</header>
+
+<main class="app" id="view"></main>
+<nav class="navbot" id="navbot" hidden aria-label="Navigasi bawah"><div class="navbot-in"><button class="nb-back" data-back>‹ Kembali</button><button class="nb-home" id="nbHome">Pilih napas lain</button></div></nav>
+
+<script>
+/* ===== Data napas ===== */
+const N={
+ dada:{name:"Napas Dada",p:[4,1,4,0],out:"Embuskan pelan",steps:["Letakkan satu tangan di dada.","Tarik napas lewat hidung, rasakan dada naik.","Embuskan lewat mulut pelan-pelan."]},
+ diafragma:{name:"Napas Diafragma",p:[4,1,4,0],out:"Embuskan, rusuk menyempit",steps:["Letakkan kedua tangan di tulang rusuk bawah.","Tarik napas, rasakan rusuk melebar ke samping.","Embuskan, rasakan rusuk kembali menyempit."]},
+ perut:{name:"Napas Perut",p:[4,1,4,0],out:"Embuskan, perut kempis",steps:["Letakkan tangan di perut, seperti memeluk adik bayi.","Tarik napas, perut mengembang lembut.","Embuskan, perut kembali kempis."]},
+ diafperut:{name:"Napas Diafragma-Perut",p:[4,1,4,0],out:"Embuskan panjang",steps:["Satu tangan di rusuk bawah, satu di perut.","Tarik napas: rusuk melebar, lalu perut mengembang.","Embuskan panjang sampai keduanya rileks."]},
+ sedotan:{name:"Tiup Sedotan",p:[4,4,6,2],out:"Tiup lewat sedotan",steps:["Siapkan sedotan, atau buat bibir mengerucut seperti memegang sedotan.","Tarik napas lewat hidung 4 hitungan, tahan 4.","Embuskan pelan lewat sedotan 6 hitungan, jeda 2."]},
+ n478:{name:"Napas Nyenyak 4-7-8",p:[4,7,8,0],out:"Embuskan panjang",steps:["Berbaring miring ke kiri, lemaskan seluruh tubuh.","Tarik napas lewat hidung 4 hitungan, tahan 7.","Embuskan lewat mulut 8 hitungan. Cukup 4 putaran."]},
+ tenang:{name:"Napas Tenang 4-2-6",p:[4,2,6,0],out:"Embuskan pelan",steps:["Tarik napas lewat hidung 4 hitungan.","Tahan lembut 2 hitungan.","Embuskan 6 hitungan. Embusan yang lebih panjang memberi sinyal aman ke tubuh."]},
+ bibir:{name:"Napas Bibir Mengerucut",p:[2,0,4,0],out:"Bibir mengerucut",steps:["Duduk tegak, bahu lemas.","Tarik napas lewat hidung 2 hitungan.","Embuskan 4 hitungan lewat bibir mengerucut, seperti bersiul pelan."]},
+ pemulih:{name:"Napas Pemulih 3-5-7",p:[3,5,7,0],out:"Embuskan pelan",steps:["Tangkupkan kedua telapak tangan di depan hidung dan mulut.","Tarik napas pelan 3 hitungan, tahan 5.","Embuskan 7 hitungan. Ulangi sampai kesemutan hilang."]},
+ calm:{name:"Calm & Slow",p:[4,2,4,0],out:"Embuskan, lemaskan",steps:["Duduk bersandar atau berbaring miring.","Tarik napas perut 4 hitungan, tahan 2.","Embuskan 4 hitungan sambil menurunkan bahu dan melemaskan rahang."]},
+ calm6:{name:"Calm & Slow Panjang",p:[6,3,6,0],out:"Embuskan, lemaskan",steps:["Posisi paling nyaman, mata boleh terpejam.","Tarik napas perut 6 hitungan, tahan 3.","Embuskan 6 hitungan. Bayangkan tubuh makin berat dan hangat."]},
+ balance:{name:"Relax & Balance",p:[4,2,4,0],out:"Embuskan lubang sebaliknya",steps:["Tutup lubang hidung kanan dengan ibu jari, tarik napas lewat kiri.","Tahan sebentar, tutup lubang kiri, embuskan lewat kanan.","Putaran berikutnya dibalik: masuk kanan, keluar kiri."]},
+ lilin:{name:"Tiup Lilin",p:[4,4,4,0],out:"Tiup lilin pelan",steps:["Tarik napas lewat hidung 4 hitungan.","Tahan lembut 4 hitungan.","Tiup pelan lewat mulut seperti meniup lilin tanpa memadamkannya."]},
+ heehuu:{name:"Hee-Huu",p:[4,2,6,0],out:"hee... huu...",steps:["Tarik napas lewat hidung 4 hitungan.","Tahan 2 hitungan.","Keluarkan 6 hitungan sambil bersuara pelan: “hee... huu...”."]},
+ hehehoho:{name:"Hehe-Hoho",p:[4,2,8,0],out:"he-he... ho-ho...",steps:["Tarik napas lewat hidung 4 hitungan.","Tahan 2 hitungan.","Keluarkan 8 hitungan dengan suara rendah: “he-he... ho-ho...”. Rahang lemas."]},
+ desis:{name:"Smile Hissing",p:[4,1,8,0],out:"Senyum... sssss...",steps:["Tarik napas lewat hidung 4 hitungan, tahan 1.","Tersenyum kecil.","Keluarkan napas lewat sela gigi: “sssss...” selama 8 hitungan."]},
+ transisi:{name:"Napas Transisi 2-2",p:[2,0,2,0],out:"hu... hu...",steps:["Tarik napas pendek dan ringan.","Keluarkan pendek: “hu... hu...”.","Jangan mendorong. Pakai hanya selama gelombang."]},
+ lepas:{name:"Embus Panjang",p:[4,0,6,0],out:"Embus, lemaskan panggul",steps:["Tarik napas lewat hidung 4 hitungan.","Embuskan panjang 6 hitungan lewat mulut.","Setiap embusan, lemaskan paha, bokong, dan dasar panggul."]},
+ dorong:{name:"Powerful Chest",p:[4,1,6,0],out:"Embus sambil mendorong",steps:["Tarik napas penuh saat dorongan datang.","Dagu menunduk, bahu lemas.","Embuskan pelan sambil mendorong lembut mengikuti dorongan tubuh."]},
+ slowdown:{name:"Slow Down Release",p:[2,0,4,0],out:"hah... hah...",steps:["Dengarkan aba-aba bidan untuk berhenti mendorong.","Bernapas pendek dan ringan lewat mulut: “hah... hah...”.","Biarkan adik bayi lahir pelan-pelan."]},
+ spinal:{name:"Napas Bius Spinal",p:[4,0,6,0],out:"Embus panjang, punggung lemas",steps:["Ikuti posisi yang diminta: duduk membungkuk atau berbaring miring meringkuk.","Tarik napas pelan lewat hidung 4 hitungan.","Embuskan panjang 6 hitungan, biarkan punggung melemas. Usahakan tetap diam."]},
+ meja:{name:"Napas Perut Pelan",p:[4,1,6,0],out:"Embuskan pelan",steps:["Biarkan lengan rileks di posisi yang diatur perawat.","Tarik napas pelan ke arah rusuk dan perut atas.","Embuskan 6 hitungan sambil melemaskan bahu dan rahang."]},
+ batuk:{name:"Napas Dalam & Batuk Efektif",p:[4,2,6,0],out:"Embuskan pelan",steps:["Duduk atau setengah duduk, peluk bantal di atas bekas luka.","Tarik napas dalam lewat hidung, tahan 2 hitungan, embuskan pelan. Ulangi 3 kali.","Di tarikan ketiga, tekan bantal ke perut, lalu batuk pendek atau ucapkan “hah!” dengan kuat."]},
+ bangun:{name:"Napas Bangkit",p:[3,0,5,0],out:"Embus sambil bangkit",steps:["Tekuk lutut, miring ke satu sisi sambil menahan perut dengan tangan atau bantal.","Tarik napas saat siap.","Embuskan panjang sambil mendorong badan ke posisi duduk dengan kedua tangan."]},
+ caesar:{name:"Napas Persiapan Sectio Caesarea",p:[4,4,6,2],out:"Embuskan pelan",steps:["Tarik napas perut 4 hitungan, tahan 4.","Embuskan 6 hitungan, jeda 2.","Bayangkan pelukan pertama dengan adik bayi."]}
+};
+
+/* ===== Data keluhan & fase ===== */
+const K=[
+ {id:"mual",g:"h",d:"120",tri:[1,2],t:"Mual & muntah",f:"Perut bergejolak, mencium bau tertentu jadi mual",kw:"mual muntah eneg morning sickness",n:"sedotan",
+  i:"Mual paling sering muncul di trimester awal. Embusan panjang lewat sedotan membuat Bunda fokus pada napas keluar, dan ini membantu perut lebih tenang.",
+  tips:["Duduk tegak atau bersandar, jangan berbaring datar.","Cari udara segar atau buka jendela.","Sesudahnya minum air sedikit-sedikit."],
+  flags:["Muntah terus sampai tidak bisa makan dan minum seharian","Pipis sangat sedikit atau warnanya pekat","Badan sangat lemas atau pusing saat berdiri"]},
+ {id:"tidur",g:"h",d:"c4",tri:[1,2,3],t:"Susah tidur",f:"Sudah lama berbaring tapi mata masih segar",kw:"tidur insomnia begadang malam",n:"n478",alt:"tenang",
+  i:"Embusan yang panjang memberi tanda ke tubuh bahwa sudah waktunya istirahat. Cukup 4 putaran, lalu biarkan napas kembali biasa.",
+  tips:["Berbaring miring ke kiri, bantal di antara lutut.","Kalau menahan 7 hitungan terasa berat, pakai Napas Tenang 4-2-6.","Jauhkan HP setelah selesai."],
+  flags:["Susah tidur hampir setiap malam disertai sedih atau cemas berkepanjangan","Mendengkur keras dan sering terbangun karena sesak"]},
+ {id:"cemas",g:"h",d:"120",tri:[1,2,3],t:"Cemas, takut, khawatir",f:"Pikiran ramai, dada berdebar, takut menghadapi persalinan",kw:"cemas takut khawatir stres panik deg-degan overthinking",n:"tenang",
+  i:"Saat cemas, napas jadi pendek dan cepat. Memanjangkan embusan adalah cara paling cepat menenangkan tubuh, dan pikiran biasanya ikut mereda.",
+  tips:["Satu tangan di dada, satu di perut.","Ucapkan dalam hati: aku aman, adik bayi aman.","Ceritakan rasa takut Bunda ke pendamping atau bidan."],
+  flags:["Cemas atau sedih hampir setiap hari selama lebih dari dua minggu","Sulit makan, tidur, atau beraktivitas karena cemas","Muncul pikiran untuk menyakiti diri sendiri. Segera bicara dengan bidan, dokter, atau orang terdekat"]},
+ {id:"terengah",g:"h",d:"120",tri:[3],t:"Sesak napas ringan",f:"Napas terasa pendek, cepat terengah saat naik tangga atau bicara lama",kw:"sesak napas nafas engap terengah ngos-ngosan napas pendek",n:"diafragma",alt:"bibir",
+  i:"Rahim yang membesar mendesak diafragma ke atas, sehingga ruang paru terasa sempit. Ini umum di trimester akhir. Napas diafragma melatih rusuk mengembang ke samping.",
+  tips:["Duduk tegak dan angkat kedua lengan ke atas kepala sebentar untuk memberi ruang.","Bicara dan berjalan lebih pelan."],
+  flags:["Sesak datang tiba-tiba, atau tetap sesak saat istirahat","Nyeri dada, jantung berdebar sangat cepat, atau bibir kebiruan","Batuk darah, atau satu kaki bengkak dan nyeri"]},
+ {id:"pusing",g:"h",d:"120",tri:[1,2,3],t:"Pusing & kesemutan saat bernapas",f:"Kepala ringan, jari atau sekitar mulut kesemutan setelah latihan",kw:"pusing kesemutan hiperventilasi pening kliyengan",n:"pemulih",
+  i:"Ini tanda napas terlalu cepat atau terlalu dalam (hiperventilasi). Tidak berbahaya bila segera diperlambat. Kalau pusing muncul tanpa sedang latihan napas, periksakan ke bidan.",
+  tips:["Hentikan napas yang sedang dilatih.","Tangkupkan telapak tangan di depan hidung dan mulut, bernapas pelan.","Setelah reda, lanjut dengan napas tenang tanpa menahan napas."],
+  flags:["Pusing tidak hilang setelah napas diperlambat","Pusing disertai sakit kepala hebat, pandangan kabur, bengkak di wajah atau tangan, atau nyeri ulu hati","Hampir pingsan, sangat pucat, atau sangat lemas"]},
+ {id:"tegang",g:"h",d:"180",tri:[2,3],t:"Badan tegang & pegal",f:"Bahu kaku, punggung pegal, susah rileks",kw:"pegal tegang kaku capek punggung bahu",n:"calm",alt:"calm6",
+  i:"Otot yang tegang ikut menahan napas. Setiap embusan adalah kesempatan untuk melepaskan satu bagian tubuh.",
+  tips:["Setiap embusan, turunkan bahu dan lemaskan rahang.","Minta pendamping memijat punggung mengikuti napas Bunda."],
+  flags:["Nyeri punggung bawah yang datang dan pergi teratur sebelum usia kehamilan 37 minggu","Nyeri disertai demam atau perih saat pipis"]},
+ {id:"kencang",g:"h",d:"60",tri:[2,3],t:"Perut kencang-kencang",f:"Perut mengeras sesekali, tidak teratur, lalu hilang",kw:"kencang kontraksi palsu braxton latihan",n:"perut",
+  i:"Ini sering disebut kontraksi latihan. Momen yang pas untuk mencoba napas persalinan dengan santai.",
+  tips:["Ganti posisi atau minum air, biasanya kencang-kencang mereda.","Catat jaraknya. Kalau makin teratur dan menguat, buka bagian Saat Persalinan."],
+  flags:["Kencang-kencang teratur dan makin sering sebelum usia kehamilan 37 minggu","Keluar darah atau air ketuban","Gerakan adik bayi berkurang"]},
+ 
+ {id:"asma",g:"h",d:"120",tri:[1,2,3],t:"Asma kambuh",f:"Dada berat, napas berbunyi",kw:"asma mengi sesak",n:"bibir",
+  i:"Pakai obat atau inhaler dari dokter lebih dulu. Napas bibir mengerucut membantu Bunda tetap tenang sambil menunggu obat bekerja. Napas ini pendamping, bukan pengganti obat.",
+  tips:["Duduk tegak, condong sedikit ke depan, tangan bertumpu di paha."],
+  flags:["Sesak tidak membaik setelah memakai obat","Sulit bicara satu kalimat penuh","Bibir atau ujung jari kebiruan. Segera ke IGD"]},
+ {id:"tensi",g:"h",d:"300",tri:[2,3],t:"Tekanan darah tinggi",f:"Sedang dalam pengawasan tekanan darah",kw:"hipertensi tensi tekanan darah tinggi preeklampsia",n:"tenang",
+  i:"Napas tenang membantu tubuh lebih rileks. Ini pendamping, bukan pengganti obat dan kontrol rutin ke bidan atau dokter.",
+  tips:["Latihan di waktu yang sama setiap hari, misalnya sebelum tidur.","Tetap ukur tekanan darah sesuai jadwal."],
+  flags:["Sakit kepala hebat atau pandangan kabur","Nyeri ulu hati","Bengkak mendadak di wajah atau tangan","Sesak napas. Segera ke fasilitas kesehatan"]},
+
+ {id:"awal",g:"s",d:"60w",t:"Gelombang masih jarang dan ringan",e:"Perkiraan bukaan awal (sekitar 1–3)",f:"Masih bisa mengobrol saat gelombang datang",kw:"bukaan 1 2 3 awal laten ringan mulas",n:"lilin",alt:"calm",wave:1,
+  i:"Gelombang datang sekitar 10–20 menit sekali dan masih bisa diajak bicara. Simpan tenaga, jangan langsung memakai napas yang berat.",
+  tips:["Tarik napas panjang menyambut gelombang, embuskan panjang saat gelombang selesai.","Masih boleh jalan-jalan, makan ringan, dan minum.","Istirahat di sela gelombang."],
+  partner:["“Tarik panjang... tiup lilinnya pelan.”","Bantu catat jarak dan lama gelombang.","Siapkan minum dan camilan."],
+  flags:["Keluar air ketuban atau darah segar","Gerakan adik bayi berkurang"]},
+ {id:"sela",g:"s",d:"60",t:"Di sela gelombang",e:"Kapan saja",f:"Gelombang sudah lewat, saatnya mengisi tenaga",kw:"istirahat jeda sela",n:"calm6",alt:"balance",
+  i:"Waktu istirahat di antara gelombang sama pentingnya dengan gelombang itu sendiri. Napas pelan memulihkan tenaga dan menenangkan pikiran.",
+  tips:["Ganti posisi kalau perlu, lalu lemaskan seluruh tubuh.","Minum seteguk air."],
+  partner:["Redupkan lampu dan kurangi suara di ruangan.","Usap punggung Bunda mengikuti napasnya."]},
+ {id:"tengah",g:"s",d:"60w",t:"Gelombang makin kuat dan rapat",e:"Perkiraan bukaan pertengahan (sekitar 4–7)",f:"Sulit bicara saat gelombang, ingin fokus",kw:"bukaan 4 5 6 7 aktif kuat",n:"heehuu",alt:"hehehoho",wave:1,
+  i:"Gelombang datang sekitar 3–5 menit sekali. Suara membantu melepas ketegangan. Mulai dari Hee-Huu, pindah ke Hehe-Hoho kalau masih terasa berat.",
+  tips:["Suara rendah, rahang lemas. Suara tinggi membuat tubuh ikut tegang.","Hitungan hanya pegangan. Yang penting embusan lebih panjang dari tarikan."],
+  partner:["Hitung keras bersama Bunda: “tarik... hee... huu...”","Ikut bersuara rendah supaya Bunda tidak malu bersuara.","“Gelombang ini sudah lewat setengah.”"]},
+ {id:"puncak",g:"s",d:"60w",t:"Gelombang sangat kuat",e:"Perkiraan menjelang bukaan lengkap (sekitar 8–10)",f:"Gelombang rapat, terasa paling berat",kw:"bukaan 8 9 10 transisi berat",n:"desis",alt:"hehehoho",wave:1,
+  i:"Ini fase paling berat, tapi juga paling singkat. Hadapi satu gelombang demi satu gelombang.",
+  tips:["Tersenyum sebelum mendesis membantu melemaskan wajah.","Kalau hitungan berantakan, tidak apa-apa. Kembali ke embusan panjang."],
+  partner:["Tatap mata Bunda dan bernapas bersamanya.","“Kamu kuat, adik bayi sudah dekat.”","Jangan banyak bertanya. Kalimat pendek saja."]},
+ {id:"tahan",g:"s",d:"30",t:"Ingin mengejan, tapi belum boleh",e:"Sebelum bidan menyatakan bukaan lengkap",f:"Ada dorongan kuat seperti ingin buang air besar",kw:"mengejan ngeden belum lengkap tahan",n:"transisi",wave:1,
+  i:"Kadang dorongan mengejan datang sebelum pembukaan lengkap. Napas pendek dan ringan membantu Bunda tidak ikut mendorong.",
+  tips:["Pakai hanya selama gelombang, lalu kembali bernapas pelan.","Posisi miring atau merangkak membantu mengurangi dorongan.","Kalau mulai pusing atau kesemutan, perlambat napas."],
+  partner:["Bernapas “hu... hu...” bersama Bunda.","Panggil bidan untuk memeriksa."]},
+ {id:"vt",g:"s",d:"0",t:"Saat diperiksa dalam",e:"Kapan saja",f:"Tubuh refleks menegang saat diperiksa",kw:"periksa dalam vt pemeriksaan",n:"lepas",
+  i:"Embusan panjang membantu otot dasar panggul lebih lemas, sehingga pemeriksaan terasa lebih nyaman.",
+  tips:["Lemaskan paha dan bokong setiap embusan.","Bunda boleh meminta bidan menunggu sampai gelombang selesai."],
+  partner:["Genggam tangan Bunda dan ajak embus panjang bersama."]},
+ {id:"dorong",g:"s",d:"0",t:"Saat diajak mendorong",e:"Bukaan lengkap",f:"Bidan sudah mengizinkan mendorong",kw:"mendorong mengejan lengkap lahir",n:"dorong",
+  i:"Ikuti dorongan alami tubuh dan arahan bidan. Tidak perlu menahan napas lama sampai wajah memerah.",
+  tips:["Tarik napas saat dorongan datang, dagu menunduk, bahu lemas.","Embuskan sambil mendorong lembut mengikuti dorongan tubuh.","Dengan epidural, tunggu sampai dorongan terasa atau ada arahan bidan."],
+  partner:["Topang punggung atau kepala Bunda.","Ulangi arahan bidan dengan suara tenang."]},
+ {id:"kepala",g:"s",d:"0",t:"Kepala adik bayi mulai lahir",e:"Detik-detik kelahiran",f:"Bidan meminta berhenti mendorong",kw:"kepala lahir crowning",n:"slowdown",
+  i:"Napas pendek dan ringan memberi waktu jalan lahir meregang perlahan, sehingga adik bayi lahir dengan lembut.",
+  tips:["Dengarkan aba-aba bidan.","Biarkan adik bayi keluar pelan-pelan."],
+  partner:["“Hah... hah... pelan-pelan, sebentar lagi.”"]},
+ {id:"setelah",g:"s",d:"120",t:"Setelah adik bayi lahir",e:"Saat dijahit, mulas, atau mulai menyusui",f:"Tubuh masih bekerja, Bunda ingin tetap rileks",kw:"jahit mulas menyusui plasenta setelah lahir nifas",n:"tenang",alt:"lepas",
+  i:"Rahim mengecil, plasenta lahir, dan mungkin ada jahitan. Napas tenang membantu Bunda tetap rileks dan menikmati kontak kulit dengan adik bayi.",
+  tips:["Saat dijahit, embuskan panjang dan lemaskan paha.","Saat mulas ketika menyusui, pakai napas yang sama."],
+  partner:["Bantu posisikan adik bayi di dada Bunda.","Ajak Bunda bernapas pelan bersama."],
+  flags:["Perdarahan banyak, pusing berat, atau jantung berdebar. Segera beri tahu bidan"]},
+ {id:"induksi",g:"s",d:"60w",t:"Dengan induksi atau epidural",e:"Kapan saja",f:"Gelombang dari infus induksi, atau sudah dibius epidural",kw:"induksi infus epidural ila bius",n:"tenang",alt:"heehuu",wave:1,
+  i:"Gelombang dari induksi bisa datang lebih cepat dan rapat. Pilih napas sesuai kuatnya gelombang. Dengan epidural, gelombang terasa lebih ringan, jadi napas tenang cukup untuk menjaga tubuh rileks.",
+  tips:["Kalau gelombang induksi terasa kuat, pindah ke Hee-Huu.","Ganti posisi miring kiri dan kanan bergantian bila diizinkan."],
+  partner:["Perhatikan monitor gelombang dan beri tahu Bunda saat gelombang mulai turun."]},
+ {id:"caesar",g:"c",d:"180",tri:[3],t:"Hari-hari menjelang sectio caesarea",e:"Sebelum hari operasi",f:"Deg-degan menunggu jadwal operasi",kw:"sectio caesarea seksio sesarea sesar caesar sc sectio operasi cemas jadwal",n:"caesar",alt:"tenang",
+  i:"Rasa cemas biasanya memuncak menjelang hari operasi. Latih napas ini setiap hari supaya di ruang operasi nanti tubuh Bunda sudah hafal ritmenya.",
+  tips:["Latih juga napas untuk bius spinal dan napas setelah operasi dari sekarang, saat tubuh masih nyaman.","Tanyakan ke dokter apa saja yang akan terjadi di ruang operasi. Tahu urutannya membuat lebih tenang."],
+  partner:["Tanyakan ke rumah sakit apakah pendamping boleh masuk ruang operasi.","Latih napas bersama setiap malam."]},
+ {id:"spinal",g:"c",d:"0",t:"Saat dibius spinal",e:"Di ruang operasi",f:"Duduk membungkuk atau berbaring meringkuk, harus tetap diam",kw:"sectio caesarea seksio sesarea sesar caesar bius spinal anestesi jarum punggung",n:"spinal",
+  i:"Bagi banyak ibu, ini momen paling menegangkan. Embusan panjang membantu punggung lebih rileks dan tubuh lebih tenang, sehingga Bunda lebih mudah tetap diam.",
+  tips:["Fokus pada embusan, bukan pada jarum.","Bilang ke dokter kalau Bunda merasa akan bergerak, batuk, atau bersin.","Setelah bius bekerja, kaki terasa hangat lalu berat. Itu wajar."],
+  partner:["Kalau diizinkan, pegang tangan atau bahu Bunda.","Hitung pelan: “tarik... embus panjang...”"],
+  flags:["Nyeri tajam yang menjalar ke kaki saat dibius. Segera beri tahu dokter anestesi"]},
+ {id:"meja",g:"c",d:"0",t:"Di meja operasi",e:"Selama operasi",f:"Sadar, terasa ditarik atau ditekan",kw:"sectio caesarea seksio sesarea sesar caesar operasi meja mual tarik",n:"meja",alt:"tenang",
+  i:"Bunda tetap sadar selama operasi. Rasa ditarik, ditekan, atau digoyang itu wajar, karena bius mematikan rasa nyeri, tapi tidak semua rasa sentuhan. Napas pelan membantu Bunda tetap tenang.",
+  tips:["Pejamkan mata kalau lebih nyaman.","Minta diputarkan musik kalau rumah sakit mengizinkan."],
+  partner:["Bicara pelan di dekat kepala Bunda.","Ceritakan apa yang terjadi kalau dokter mengizinkan: “sebentar lagi adik bayi keluar.”"],
+  flags:["Mual, pusing, sesak, atau nyeri tajam. Segera beri tahu dokter anestesi, lalu bernapas pelan sambil menunggu penanganan"]},
+ {id:"bertemu",g:"c",d:"120",t:"Bertemu adik bayi pertama kali",e:"Sesaat setelah lahir",f:"Emosi naik turun, ingin hadir penuh",kw:"sectio caesarea seksio sesarea sesar caesar imd bertemu bayi kontak kulit",n:"tenang",
+  i:"Momen ini bisa membuat emosi naik turun sekaligus. Napas tenang membantu Bunda hadir penuh saat adik bayi didekatkan ke wajah atau diletakkan di dada Bunda.",
+  tips:["Kalau tubuh menggigil setelah operasi, itu sering terjadi. Bernapas pelan dan minta selimut."],
+  partner:["Abadikan momen ini.","Dekatkan wajah adik bayi ke Bunda bila diizinkan."]},
+ {id:"batuk",g:"c",d:"60",t:"Setelah operasi: napas dalam & batuk",e:"Mulai beberapa jam setelah operasi",f:"Menjaga paru-paru tetap mengembang saat banyak berbaring",kw:"sectio caesarea seksio sesarea sesar caesar batuk napas dalam paru setelah operasi",n:"batuk",
+  i:"Setelah dibius dan berbaring lama, paru-paru perlu dibantu mengembang penuh. Napas dalam dan batuk efektif adalah latihan yang biasa dianjurkan perawat. Bantal yang dipeluk membuat bekas luka terasa lebih aman.",
+  tips:["Lakukan sesuai jadwal dari perawat.","Peluk bantal setiap kali akan batuk, bersin, atau tertawa."],
+  partner:["Siapkan bantal di dekat Bunda.","Ingatkan Bunda berlatih sesuai jadwal dari perawat."],
+  flags:["Demam, sesak, atau nyeri dada","Dahak kental berwarna kuning kehijauan"]},
+ {id:"bangun",g:"c",d:"0",t:"Bangun dari tempat tidur pertama kali",e:"Setelah diizinkan perawat",f:"Takut bekas luka tertarik",kw:"sectio caesarea seksio sesarea sesar caesar bangun duduk berdiri jalan mobilisasi",n:"bangun",
+  i:"Bangun dan berjalan lebih awal membantu pemulihan, tapi bekas luka masih sensitif. Embusan napas saat bangkit mengurangi tekanan di perut.",
+  tips:["Pertama kali, minta perawat atau pendamping menemani.","Duduk sebentar di tepi ranjang dan pastikan tidak pusing sebelum berdiri.","Berdiri setegak yang nyaman, lalu jalan pelan-pelan."],
+  partner:["Bantu dari samping, jangan menarik tangan Bunda.","Siapkan sandal dan pegangan."],
+  flags:["Pusing berat atau hampir pingsan saat berdiri. Kembali berbaring dan panggil perawat","Satu kaki bengkak, merah, dan nyeri"]},
+ {id:"menyusui",g:"c",d:"120",t:"Menyusui & nyeri bekas luka",e:"Hari-hari setelah operasi",f:"Mulas atau bekas luka terasa saat menyusui",kw:"sectio caesarea seksio sesarea sesar caesar menyusui asi mulas luka jahitan",n:"lepas",alt:"tenang",
+  i:"Saat menyusui, rahim berkontraksi sehingga terasa mulas, dan posisi tertentu bisa menekan bekas luka. Embusan panjang membantu Bunda tetap rileks.",
+  tips:["Taruh bantal di atas perut sebagai alas adik bayi.","Coba menyusui sambil berbaring miring, atau posisi adik bayi di samping badan (football hold), supaya tidak menekan bekas luka."],
+  partner:["Bantu atur bantal dan posisi adik bayi."],
+  flags:["Bekas luka basah, bernanah, berbau, atau makin merah","Demam","Perdarahan banyak"]}
+];
+
+/* ===== Trimester ===== */
+const TRI=[
+ {n:1,t:"Trimester 1",wk:"Minggu 1–12",sub:"Kenalan dengan napas dasar",
+  focus:"Tubuh sedang banyak berubah, jadi latihannya ringan saja: napas dasar dan napas untuk keluhan yang muncul. Bangun kebiasaan 10–15 menit setiap hari.",
+  plan:[["dada","1 menit"],["diafragma","1 menit"],["perut","1 menit"],["tenang","2 menit, enak dipakai sebelum tidur"]],
+  note:"Belum perlu latihan napas persalinan. Yang penting rutin, sedikit tapi setiap hari."},
+ {n:2,t:"Trimester 2",wk:"Minggu 13–26",sub:"Gabungkan napas dasar, kenalan napas gelombang awal",
+  focus:"Napas dasar sudah lancar. Saatnya menggabungkan napas dasar dan mulai mengenal napas untuk gelombang awal persalinan.",
+  plan:[["diafperut","2 menit"],["lilin","1 menit"],["calm","2 menit"],["balance","2 menit"]],
+  note:"Tambah hitungan pelan-pelan kalau sudah nyaman, misalnya dari Calm & Slow 4-2-4 ke Calm & Slow Panjang 6-3-6."},
+ {n:3,t:"Trimester 3",wk:"Minggu 27–40",sub:"Latihan intensif napas persalinan",
+  focus:"Latih semua napas persalinan, masing-masing selama 60 detik seperti panjang satu gelombang. Ajak pendamping berlatih bersama.",
+  plan:[["diafperut","1 menit pemanasan"],["heehuu","1 gelombang (60 detik)"],["hehehoho","1 gelombang (60 detik)"],["desis","1 gelombang (60 detik)"],["transisi","30 detik saja"],["dorong","3 putaran, hanya gerakan napas"]],
+  note:"Latihan napas mendorong cukup sebagai gerakan napas, tanpa mengejan sungguhan. Coba simulasi gelombang bersama pendamping di bagian Saat Persalinan."}
+];
+
+/* ===== Durasi ===== */
+const NAPDEF={dada:"60",diafragma:"60",perut:"60",diafperut:"60",sedotan:"120",n478:"c4",tenang:"120",bibir:"120",pemulih:"120",calm:"120",calm6:"120",balance:"120",lilin:"60w",heehuu:"60w",hehehoho:"60w",desis:"60w",transisi:"30",lepas:"0",dorong:"0",slowdown:"0",caesar:"180",spinal:"0",meja:"0",batuk:"60",bangun:"0"};
+const WAVEN=["lilin","heehuu","hehehoho","desis"];
+const DURL={c4:"4 putaran",30:"30 detik","60w":"1 gelombang (60 detik)",60:"1 menit",120:"2 menit",180:"3 menit",300:"5 menit",0:"Bebas"};
+const DURX={
+ c4:"4 putaran (sekitar 1 menit 15 detik) sudah cukup untuk napas 4-7-8. Lebih dari itu justru bisa membuat pusing.",
+ 30:"Napas ini cukup dipakai sebentar, hanya selama dorongan datang. Terlalu lama bisa membuat pusing.",
+ "60w":"Satu gelombang persalinan rata-rata berlangsung sekitar 60 detik. Berlatih 60 detik membiasakan Bunda bertahan sepanjang satu gelombang.",
+ 60:"Pas untuk pemula atau saat baru mengenal napas ini. Fokus dulu pada gerakan yang benar, bukan lamanya.",
+ 120:"Pilihan umum untuk meredakan keluhan. Tubuh biasanya mulai terasa lebih tenang setelah 1–2 menit.",
+ 180:"Untuk Bunda yang sudah lancar, atau saat ketegangan butuh waktu lebih lama untuk mereda.",
+ 300:"Untuk latihan rutin harian atau relaksasi sebelum tidur. Pilih ini kalau 3 menit sudah terasa nyaman.",
+ 0:"Pemandu berjalan terus sampai Bunda menekan Berhenti. Cocok saat persalinan atau saat mengikuti arahan bidan."};
+
+/* ===== Penyimpanan per perangkat ===== */
+const KEY="lb-panduan-v1";
+let S={fav:[],sound:"nada",partner:false,done:{}};
+try{const s=JSON.parse(localStorage.getItem(KEY)||"null");if(s)S=Object.assign(S,s)}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+
+const view=document.getElementById("view");
+const pat=n=>n.p.filter((v,i)=>v>0||i===0||i===2).join("-");
+const PK=["in","hold","out","pause"];
+const patTxt=pat;
+const patHTML=n=>n.p.map((v,i)=>v>0||i===0||i===2?`<span class="c-${PK[i]}">${v}</span>`:null).filter(Boolean).join("-");
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+let hist=[];
+
+/* ===== Beranda ===== */
+function itemHTML(k){const n=N[k.n];return `<button class="item ${k.g!=="h"?"stage":""}" data-k="${k.id}"><strong>${k.t}</strong><span class="pt">${pat(n)}</span>${k.e?`<span class="e">${k.e}</span>`:""}<span class="f">${k.f}</span></button>`}
+function renderHome(){
+  stopPacer();
+  const favs=S.fav.map(id=>K.find(k=>k.id===id)).filter(Boolean);
+  view.innerHTML=`
+  <section class="hero">
+    <div class="kicker">Smilebirth · Panduan Napas</div>
+    <h1>Labor Breathing</h1>
+    <p class="sub">Teknik panduan napas untuk kehamilan dan persalinan</p>
+    <p class="byline">Disusun oleh Bidan Cahyaning Puji Astuti, S.S.T.Keb, Bdn., M.Tr.Keb, CET, CH.CHT.</p>
+  </section>
+  <section class="ask">
+    <h2>Apa yang Bunda rasakan sekarang?</h2>
+    <input class="search" id="q" type="search" placeholder="Ketik keluhan, misalnya: mual, cemas, bukaan 5" autocomplete="off">
+    <div class="results" id="res" hidden></div>
+    <div id="doors" style="display:grid;gap:12px">
+      <p class="prog-t">Pilih usia kehamilan Bunda</p>
+      <div class="tris">${TRI.map(tr=>`<button class="tri-t" data-tri="${tr.n}"><span class="wk">${tr.wk}</span><strong>${tr.t}</strong><span>${tr.sub}</span></button>`).join("")}</div>
+      <div class="doors">
+        <button class="door h wide" data-g="h"><span class="ct">${K.filter(k=>k.g==="h").length} keluhan</span><strong>Keluhan selama hamil</strong><span>Mual, susah tidur, cemas, sesak napas ringan, dan lainnya</span></button>
+        <button class="door s" data-g="s"><span class="ct">${K.filter(k=>k.g==="s").length} situasi</span><strong>Persalinan normal</strong><span>Dari gelombang pertama sampai adik bayi lahir</span></button>
+        <button class="door c" data-g="c"><span class="ct">${K.filter(k=>k.g==="c").length} momen</span><strong>Persalinan sectio caesarea</strong><span>Operasi caesar: dari bius spinal sampai pertama kali bangun dari tempat tidur</span></button>
+      </div>
+    </div>
+  </section>
+  <button class="basic" id="goBasic"><span class="ring">4-1-4</span><span><strong>Napas Dasar: mulai dari sini</strong><span>Dada, diafragma, perut. Latih dulu sebelum napas lainnya, 10–15 menit setiap hari.</span></span></button>
+  ${favs.length?`<section style="display:grid;gap:10px"><div class="sec-h"><h2>Napas favorit Bunda</h2></div><div class="chips">${favs.map(k=>`<button class="chip fav" data-k="${k.id}">${k.t}</button>`).join("")}</div></section>`:""}
+  <section style="display:grid;gap:10px">
+    <div class="sec-h"><h2>Paling sering dibuka</h2></div>
+    <div class="chips">${["mual","cemas","tidur","tengah","puncak","pusing"].map(id=>{const k=K.find(x=>x.id===id);return `<button class="chip" data-k="${id}">${k.t}</button>`}).join("")}</div>
+  </section>
+  ${footer()}`;
+  const q=document.getElementById("q"),res=document.getElementById("res"),doors=document.getElementById("doors");
+  q.addEventListener("input",()=>{
+    const v=q.value.trim().toLowerCase();
+    if(!v){res.hidden=true;doors.hidden=false;return}
+    const words=v.split(/\s+/);
+    const hit=K.filter(k=>{const hay=(k.t+" "+k.f+" "+k.kw+" "+(k.e||"")).toLowerCase();return words.every(w=>hay.includes(w))});
+    res.hidden=false;doors.hidden=true;
+    res.innerHTML=hit.length?hit.map(itemHTML).join(""):`<p class="empty">Belum ada yang cocok. Coba kata lain, atau buka daftar keluhan atau persalinan.</p>`;
+  });
+}
+function renderList(g){
+  stopPacer();
+  const ks=K.filter(k=>k.g===g);
+  view.innerHTML=`<button class="back" data-back>‹ Kembali</button>
+  <section class="d-head"><div class="kicker">${({h:"Selama hamil",s:"Persalinan normal",c:"Persalinan sectio caesarea"})[g]}</div>
+  <h1>${{h:"Pilih keluhan Bunda",s:"Apa yang sedang terjadi?",c:"Napas untuk setiap momen sectio caesarea"}[g]}</h1>
+  <p class="intro">${g==="c"?"Sectio caesarea (operasi caesar) juga butuh latihan napas. Latih semua kartu ini sejak trimester 3, supaya di hari operasi tubuh Bunda sudah hafal. Prosedur bisa sedikit berbeda di tiap rumah sakit, jadi selalu ikuti arahan dokter dan perawat.":g==="h"?"Pilih yang paling mirip dengan yang Bunda rasakan. Setiap kartu berisi napas yang dipakai, pemandu, dan tanda kapan harus ke bidan.":"Pilih menurut yang Bunda rasakan. Perkiraan bukaan hanya sebagai gambaran, karena setiap persalinan berbeda dan bukaan pasti hanya diketahui lewat pemeriksaan bidan."}</p></section>
+  <div class="list">${ks.map(itemHTML).join("")}</div>`;
+}
+
+/* ===== Halaman trimester ===== */
+const today=()=>{const d=new Date();return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()};
+function renderTri(n){
+  stopPacer();n=+n;const tr=TRI.find(x=>x.n===n);const dk=today();S.done[dk]=S.done[dk]||{};
+  const ks=K.filter(k=>k.tri&&k.tri.includes(n));
+  view.innerHTML=`<button class="back" data-back>‹ Kembali</button>
+  <section class="d-head"><div class="kicker">${tr.wk}</div><h1>${tr.t}</h1><p class="intro">${tr.focus}</p></section>
+  <section class="card"><div class="sec-h"><h2>Latihan hari ini</h2><span class="prog-t" id="tp"></span></div>
+    <div class="todo">${tr.plan.map(([id,d],i)=>`<label class="todo-i"><input type="checkbox" id="t${n}-${i}" ${S.done[dk]["t"+n+"-"+i]?"checked":""}><span class="tx"><b>${N[id].name}</b><small>${patTxt(N[id])} · ${d}</small></span><button class="mini" data-nap="${id}" type="button">Mulai</button></label>`).join("")}</div>
+    <p style="font-size:14px;color:var(--muted)">${tr.note}</p></section>
+  <section style="display:grid;gap:10px"><div class="sec-h"><h2>Keluhan yang sering muncul</h2></div><div class="list">${ks.map(itemHTML).join("")}</div></section>
+  ${n===3?`<button class="door s" data-g="s" style="text-align:left"><strong>Napas persalinan normal</strong><span>Latih setiap situasi, lengkap dengan simulasi gelombang 60 detik</span></button><button class="door c" data-g="c" style="text-align:left"><strong>Napas persalinan sectio caesarea</strong><span>Dari bius spinal sampai pemulihan setelah operasi</span></button>`:""}
+  ${footer(true)}`;
+  const upd=()=>{const c=tr.plan.filter((_,i)=>S.done[dk]["t"+n+"-"+i]).length;document.getElementById("tp").textContent=c===tr.plan.length?"Selesai hari ini ✓":`${c} dari ${tr.plan.length}`};
+  view.querySelectorAll(".todo-i input").forEach(b=>b.addEventListener("change",()=>{S.done[dk][b.id]=b.checked;save();upd()}));upd();
+}
+function renderNapas(nid){
+  stopPacer();curK={id:"n:"+nid,g:"h",t:N[nid].name,n:nid};curN=nid;
+  view.innerHTML=`<button class="back" data-back>‹ Kembali</button>
+  <section class="d-head"><div class="kicker">Latihan</div><h1>${N[nid].name}</h1></section>
+  <section class="card" id="napCard"></section>
+  <div class="box flag"><h3>Hentikan latihan bila</h3><ul><li>Pusing atau kesemutan. <button class="chip" data-k="pusing">Buka napas pemulih</button></li><li>Sesak, nyeri dada, keluar darah atau air dari jalan lahir, atau gerakan adik bayi berkurang. Hubungi bidan.</li></ul></div>
+  ${footer(true)}`;
+  renderNap();
+}
+
+/* ===== Detail ===== */
+let curK=null,curN=null;
+function renderDetail(id){
+  stopPacer();
+  const k=K.find(x=>x.id===id);curK=k;curN=k.n;
+  const isFav=S.fav.includes(id);
+  const partnerBox=k.partner?`<div class="box partner" ${S.partner?"":"hidden"} id="pBox"><h3>Untuk pendamping: ucapkan dan lakukan</h3><ul>${k.partner.map(x=>`<li>${x}</li>`).join("")}</ul></div>`:"";
+  view.innerHTML=`<button class="back" data-back>‹ Kembali</button>
+  <section class="d-head">
+    <div class="row"><div class="kicker">${({h:"Selama hamil",s:"Persalinan normal",c:"Persalinan sectio caesarea"})[k.g]}</div><button class="star" id="star" aria-pressed="${isFav}">${isFav?"★ Favorit":"☆ Simpan"}</button></div>
+    <h1>${k.t}</h1>
+    ${k.e?`<span class="est">${k.e}</span>`:""}
+    <p class="intro">${k.i}</p>
+  </section>
+  ${partnerBox}
+  <section class="card" id="napCard"></section>
+  ${k.tips?`<div class="box tips"><h3>Supaya lebih nyaman</h3><ul>${k.tips.map(x=>`<li>${x}</li>`).join("")}</ul></div>`:""}
+  ${k.flags?`<div class="box flag"><h3>Hentikan dan hubungi bidan bila</h3><ul>${k.flags.map(x=>`<li>${x}</li>`).join("")}</ul></div>`:""}
+  ${footer(true)}`;
+  document.getElementById("star").addEventListener("click",e=>{
+    const on=!S.fav.includes(id);S.fav=on?[...S.fav,id]:S.fav.filter(x=>x!==id);save();
+    e.currentTarget.setAttribute("aria-pressed",on);e.currentTarget.textContent=on?"★ Favorit":"☆ Simpan";
+  });
+  renderNap();
+}
+function renderNap(){
+  const k=curK,n=N[curN];
+  const tabs=k.alt?`<div class="tabs" role="tablist">${[k.n,k.alt].map((id,i)=>`<button role="tab" aria-selected="${curN===id}" data-tab="${id}">${i?"Kalau masih berat":"Napas utama"}</button>`).join("")}</div>`:"";
+  const rec=(k.d&&k.n===curN)?k.d:(NAPDEF[curN]||"60");
+  const opts=[];if(curN==="n478")opts.push("c4");if(curN==="transisi")opts.push("30");if(k.wave||WAVEN.includes(curN))opts.push("60w");opts.push("60","120","180","300","0");
+  if(!opts.includes(rec))opts.unshift(rec);
+  const durs=opts.map(v=>[v,DURL[v]+(v===rec?" · disarankan":"")]);
+  document.getElementById("napCard").innerHTML=`${tabs}
+  <div class="nap-h"><h2>${n.name}</h2><div class="pat">${patHTML(n)}<small>tarik · tahan · embus${n.p[3]?" · jeda":""}</small></div></div>
+  <ol class="steps">${n.steps.map(s=>`<li>${s}</li>`).join("")}</ol>
+  <div class="pacer">
+    <canvas class="wave" id="wave" width="600" height="64" ${k.wave?"":"hidden"}></canvas>
+    <div class="wave-l" id="waveL" ${k.wave?"":"hidden"}>Tekan mulai saat gelombang terasa datang</div>
+    <div class="legend">${n.p.map((v,i)=>v>0?`<span class="lg ${PK[i]}"><i></i>${["Tarik","Tahan","Embus","Jeda"][i]} ${v}</span>`:"").join("")}</div>
+    <div class="segs" id="segs">${n.p.map((v,i)=>v>0?`<span class="seg ${PK[i]}" data-s="${PK[i]}" style="flex:${v}"></span>`:"").join("")}</div>
+    <div class="stage-box"><div class="orb" id="orb"></div><div class="orb-txt"><div class="c" id="cnt"></div><div class="w" id="word">Siap?</div></div></div>
+    <div class="ctrl">
+      <button class="btn" id="go">Mulai</button>
+      <label class="sr" for="dur" hidden>Durasi</label>
+      <select class="sel" id="dur" aria-label="Durasi">${durs.map(([v,l])=>`<option value="${v}" ${v===rec?"selected":""}>${l}</option>`).join("")}</select>
+      <select class="sel" id="snd" aria-label="Suara pemandu"><option value="nada">Nada</option><option value="suara">Suara perempuan</option><option value="hening">Hening</option></select>
+    </div>
+    <div class="durhelp" id="durHelp"></div>
+    <p class="status" id="stat">Pola ${pat(n)}</p>
+    <div class="feel" id="feel" hidden></div>
+  </div>`;
+  const dh=()=>{const v=document.getElementById("dur").value;document.getElementById("durHelp").innerHTML=`<p><b>${v===rec?"Durasi yang disarankan untuk napas ini.":"Bunda memilih "+DURL[v]+"."}</b> ${DURX[v]}</p><p class="tip">Cara memilih: pemula mulai dari yang disarankan. Naik satu tingkat kalau sudah 3 hari terasa nyaman. Turunkan durasi atau berhenti kalau pusing atau kesemutan.</p>`};
+  document.getElementById("dur").addEventListener("change",()=>{stopPacer();dh()});dh();
+  document.getElementById("snd").value=S.sound;
+  document.getElementById("snd").addEventListener("change",e=>{S.sound=e.target.value;save();if(S.sound!=="hening")ensureAudio()});
+  document.getElementById("go").addEventListener("click",()=>running?stopPacer("Berhenti. Bernapas biasa dulu."):startPacer());
+  document.querySelectorAll("[data-tab]").forEach(b=>b.addEventListener("click",()=>{stopPacer();curN=b.dataset.tab;renderNap()}));
+  if(k.wave)drawWave(0);
+}
+
+/* ===== Napas Dasar ===== */
+function renderBasic(){
+  stopPacer();
+  curK={id:"dasar",g:"h",t:"Napas Dasar",n:"perut",alt:null};curN="dada";
+  view.innerHTML=`<button class="back" data-back>‹ Kembali</button>
+  <section class="d-head"><div class="kicker">Wajib sebelum napas lainnya</div><h1>Napas Dasar</h1>
+  <p class="intro">Semua teknik di panduan ini berdiri di atas tiga napas: dada, diafragma, dan perut. Latih masing-masing 1 menit dengan pola 4-1-4, setiap hari 10–15 menit. Hitungan boleh dinaikkan pelan-pelan kalau sudah nyaman.</p></section>
+  <section class="card"><div class="tabs" role="tablist" id="bTabs">${["dada","diafragma","perut","diafperut"].map(id=>`<button role="tab" data-b="${id}" aria-selected="${id==="dada"}">${N[id].name.replace("Napas ","")}</button>`).join("")}</div><div id="napCard" style="display:grid;gap:12px"></div></section>
+  <div class="box tips"><h3>Sebelum latihan</h3><ul><li>Lewat 1–2 jam dari waktu makan.</li><li>Kandung kemih sudah kosong, air putih di dekat Bunda.</li><li>Posisi duduk bersandar atau berbaring miring ke kiri.</li><li>Tanda latihan benar: bahu tetap turun, rahang lemas, dan Bunda lebih tenang setelah satu menit.</li></ul></div>
+  <div class="box flag"><h3>Hentikan latihan bila</h3><ul><li>Pusing atau kesemutan. Buka kartu Pusing &amp; kesemutan.</li><li>Sesak, nyeri dada, keluar darah atau air dari jalan lahir, atau gerakan adik bayi berkurang. Hubungi bidan.</li></ul></div>
+  ${footer(true)}`;
+  const nc=document.getElementById("napCard");nc.classList.remove("card");
+  document.querySelectorAll("[data-b]").forEach(b=>b.addEventListener("click",()=>{stopPacer();curN=b.dataset.b;document.querySelectorAll("[data-b]").forEach(x=>x.setAttribute("aria-selected",x===b));renderNap()}));
+  renderNap();
+}
+
+function footer(short){return `<section class="foot">
+  ${short?"":`<div class="cta"><h3>Ingin dipandu langsung oleh bidan?</h3><p>Ikuti kelas atau sesi pendampingan Labor Breathing bersama bidan mitra Smilebirth di aplikasi SBCare atau sbcare.co.id.</p></div>`}
+  <p>Panduan ini adalah materi edukasi dan tidak menggantikan pemeriksaan kehamilan. Selalu ikuti arahan bidan atau dokter yang menangani Bunda.</p>
+  <p>© Smilebirth · Labor Breathing oleh Bidan Cahyaning Puji Astuti</p></section>`}
+
+/* ===== Navigasi ===== */
+function go(v,arg,push=true){if(push)hist.push([v,arg]);document.getElementById("navbot").hidden=v==="home";({home:renderHome,list:renderList,detail:renderDetail,basic:renderBasic,tri:renderTri,napas:renderNapas})[v](arg);window.scrollTo(0,0)}
+document.addEventListener("click",e=>{
+  const t=e.target.closest("[data-k],[data-g],[data-back],[data-tri],[data-nap],#goBasic");if(!t)return;
+  if(t.dataset.nap){e.preventDefault();go("napas",t.dataset.nap)}
+  else if(t.dataset.tri)go("tri",t.dataset.tri);
+  else if(t.dataset.k)go("detail",t.dataset.k);
+  else if(t.dataset.g)go("list",t.dataset.g);
+  else if(t.id==="goBasic")go("basic");
+  else if(t.hasAttribute("data-back")){hist.pop();const p=hist[hist.length-1]||["home"];go(p[0],p[1],false)}
+});
+document.getElementById("home").addEventListener("click",()=>{hist=[["home"]];go("home",null,false)});
+document.getElementById("nbHome").addEventListener("click",()=>{hist=[["home"]];go("home",null,false)});
+const pt=document.getElementById("partnerToggle");
+function setPartner(){pt.setAttribute("aria-pressed",S.partner);const b=document.getElementById("pBox");if(b)b.hidden=!S.partner}
+pt.addEventListener("click",()=>{S.partner=!S.partner;save();setPartner()});setPartner();
+
+/* ===== Suara ===== */
+let actx=null,idVoice=null;
+function ensureAudio(){try{if(!actx)actx=new (window.AudioContext||window.webkitAudioContext)();if(actx.state==="suspended")actx.resume()}catch(e){}}
+function loadVoice(){try{const v=speechSynthesis.getVoices().filter(x=>/^(id|in)[-_]/i.test(x.lang)||/^id$/i.test(x.lang));
+  const male=/ardi|andika|male|pria|laki|man\b/i,fem=/damayanti|gadis|female|wanita|perempuan|google/i;
+  idVoice=v.find(x=>fem.test(x.name)&&!male.test(x.name))||v.find(x=>!male.test(x.name))||null}catch(e){}}
+if("speechSynthesis" in window){loadVoice();try{speechSynthesis.onvoiceschanged=loadVoice}catch(e){}}
+function tone(kind,secs){
+  if(!actx)return;try{
+  const t=actx.currentTime,o=actx.createOscillator(),g=actx.createGain();o.type="sine";
+  if(kind==="in"){o.frequency.setValueAtTime(220,t);o.frequency.linearRampToValueAtTime(330,t+secs)}
+  else if(kind==="out"){o.frequency.setValueAtTime(330,t);o.frequency.linearRampToValueAtTime(196,t+secs)}
+  else{o.frequency.setValueAtTime(523,t);secs=.6}
+  const peak=kind==="in"||kind==="out"?.07:.05;
+  g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(peak,t+.25);
+  g.gain.setValueAtTime(peak,Math.max(t+.26,t+secs-.3));g.gain.linearRampToValueAtTime(0,t+secs);
+  o.connect(g);g.connect(actx.destination);o.start(t);o.stop(t+secs+.05)}catch(e){}
+}
+function say(txt){try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(txt);u.lang="id-ID";u.rate=.85;u.pitch=1.15;if(idVoice)u.voice=idVoice;speechSynthesis.speak(u)}catch(e){}}
+const WORD={in:"Tarik",hold:"Tahan",out:"Embuskan",pause:"Jeda"};
+function cue(ph){
+  if(S.sound==="nada")tone(ph.k,ph.s);
+  else if(S.sound==="suara"){if("speechSynthesis" in window)say(WORD[ph.k]);else tone(ph.k,ph.s)}
+}
+
+/* ===== Pemandu napas ===== */
+let cycleLimit=0,running=false,timer=null,phases=[],pi=0,rem=0,cycles=0,elapsed=0,limit=0,waveMode=false,lock=null;
+const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+const $=id=>document.getElementById(id);
+function scale(s,secs){const o=$("orb");if(!o)return;o.style.transition=`transform ${reduce?0:secs}s ease-in-out, background-color .5s, box-shadow .5s`;o.style.transform=`scale(${s})`}
+function startPacer(){
+  const n=N[curN];const [a,b,c,d]=n.p;phases=[];
+  if(a)phases.push({k:"in",s:a,w:"Tarik lewat hidung"});
+  if(b)phases.push({k:"hold",s:b,w:"Tahan lembut"});
+  if(c)phases.push({k:"out",s:c,w:n.out});
+  if(d)phases.push({k:"pause",s:d,w:"Jeda"});
+  const dv=$("dur").value;waveMode=dv==="60w";cycleLimit=dv==="c4"?4:0;limit=waveMode?60:(cycleLimit?0:+dv);
+  if(S.sound!=="hening")ensureAudio();
+  try{navigator.wakeLock&&navigator.wakeLock.request("screen").then(l=>lock=l).catch(()=>{})}catch(e){}
+  running=true;pi=0;cycles=0;elapsed=0;$("feel").hidden=true;
+  $("go").textContent="Berhenti";scale(1,.01);enter();status();if(waveMode)drawWave(0);
+  timer=setInterval(tick,1000);
+}
+function enter(){const ph=phases[pi];rem=ph.s;$("word").textContent=ph.w;$("cnt").textContent=rem;$("orb").dataset.ph=ph.k;document.querySelectorAll("#segs .seg").forEach(x=>x.classList.toggle("on",x.dataset.s===ph.k));
+  if(ph.k==="in")scale(1.75,ph.s);else if(ph.k==="out")scale(1,ph.s);cue(ph)}
+function tick(){
+  rem--;elapsed++;
+  if(limit&&elapsed>=limit){finish();return}
+  if(rem<=0){pi++;if(pi>=phases.length){pi=0;cycles++;if(cycleLimit&&cycles>=cycleLimit){status();finish();return}}enter()}else $("cnt").textContent=rem;
+  status();if(waveMode)drawWave(elapsed);
+}
+function status(){const s=$("stat");if(s)s.textContent=`Pola ${pat(N[curN])} · ${cycles}${cycleLimit?" dari "+cycleLimit:""} putaran${limit?` · ${Math.min(elapsed,limit)} dari ${limit} detik`:` · ${elapsed} detik`}`}
+function stopPacer(msg){
+  clearInterval(timer);timer=null;const was=running;running=false;
+  try{speechSynthesis.cancel()}catch(e){}
+  try{lock&&lock.release();lock=null}catch(e){}
+  if(!$("go"))return;delete $("orb").dataset.ph;document.querySelectorAll("#segs .seg").forEach(x=>x.classList.remove("on"));$("go").textContent="Mulai";scale(1,1);$("cnt").textContent="";$("word").textContent=msg||"Siap?";
+}
+function finish(){
+  stopPacer(waveMode?"Gelombang selesai":"Selesai");if(waveMode)drawWave(60);
+  if(S.sound==="suara")say("Selesai. Bernapas biasa.");else if(S.sound==="nada")tone("hold",.6);
+  const f=$("feel");f.hidden=false;
+  f.innerHTML=`<p>Bagaimana rasanya sekarang?</p><div class="chips"><button class="chip" data-f="ok">Lebih tenang</button><button class="chip" data-f="biasa">Biasa saja</button><button class="chip" data-f="pusing">Pusing atau kesemutan</button></div><p class="feel-msg" id="fm"></p>`;
+  f.querySelectorAll("[data-f]").forEach(b=>b.addEventListener("click",()=>{
+    const fm=$("fm"),v=b.dataset.f;
+    if(v==="ok"){fm.innerHTML=S.fav.includes(curK.id)||curK.id==="dasar"||curK.id.startsWith("n:")?"Bagus. Ulangi kapan saja Bunda butuh.":`Bagus. <button class="chip fav" id="favNow">☆ Simpan ke favorit</button>`;
+      const fn=$("favNow");if(fn)fn.addEventListener("click",()=>{S.fav=[...S.fav,curK.id];save();fm.textContent="Tersimpan. Kartu ini muncul di beranda.";const st=$("star");if(st){st.setAttribute("aria-pressed","true");st.textContent="★ Favorit"}})}
+    else if(v==="biasa")fm.textContent=curK.alt?"Wajar di awal. Coba sekali lagi, atau pilih tab satunya.":"Wajar di awal. Napas makin terasa manfaatnya setelah rutin dilatih beberapa hari.";
+    else{fm.innerHTML=`Berhenti dulu dan bernapas lebih pelan. <button class="chip" data-k="pusing">Buka napas pemulih</button>`}
+  }));
+}
+function drawWave(t){
+  const cv=$("wave");if(!cv||cv.hidden)return;const ctx=cv.getContext("2d"),W=cv.width,H=cv.height;
+  const cs=getComputedStyle(document.documentElement),col=v=>cs.getPropertyValue(v).trim();
+  ctx.clearRect(0,0,W,H);
+  const y=x=>H-6-(H-18)*Math.exp(-Math.pow((x/W-.5)/.2,2));
+  ctx.beginPath();ctx.moveTo(0,H);for(let x=0;x<=W;x+=4)ctx.lineTo(x,y(x));ctx.lineTo(W,H);ctx.closePath();ctx.fillStyle=col("--coral-soft");ctx.fill();
+  ctx.beginPath();for(let x=0;x<=W;x+=4)x?ctx.lineTo(x,y(x)):ctx.moveTo(x,y(x));ctx.strokeStyle=col("--coral");ctx.lineWidth=3;ctx.stroke();
+  const px=Math.min(t,60)/60*W;ctx.beginPath();ctx.arc(px,y(px),8,0,7);ctx.fillStyle=col("--teal");ctx.fill();
+  const l=$("waveL");if(l&&running)l.textContent=t<20?"Gelombang naik. Ikuti napasnya.":t<40?"Puncak gelombang. Bunda kuat, terus bernapas.":"Gelombang turun. Sebentar lagi selesai.";
+  else if(l&&t>=60)l.textContent="Gelombang selesai. Tarik napas panjang, lepaskan.";
+}
+document.addEventListener("keydown",e=>{if(e.key===" "&&$("go")&&document.activeElement===document.body){e.preventDefault();$("go").click()}});
+
+hist=[["home"]];renderHome();
+</script>
+</body>
+</html>
