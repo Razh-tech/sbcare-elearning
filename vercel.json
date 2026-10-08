@@ -1,6 +1,10 @@
 {
   "rewrites": [
     {
+      "source": "/labor-breathing/labor-breathing",
+      "destination": "/labor-breathing/interactive-book.html"
+    },
+    {
       "source": "/",
       "destination": "/labor-breathing/interactive-book.html"
     }
