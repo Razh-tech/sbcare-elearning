@@ -1,12 +1,13 @@
 {
+  "outputDirectory": "labor-breathing",
   "rewrites": [
     {
       "source": "/labor-breathing/interactive-book",
-      "destination": "/labor-breathing/interactive-book.html"
+      "destination": "/interactive-book.html"
     },
     {
       "source": "/",
-      "destination": "/labor-breathing/interactive-book.html"
+      "destination": "/interactive-book.html"
     }
   ]
 }
