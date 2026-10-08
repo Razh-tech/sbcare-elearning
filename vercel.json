@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/labor-breathing/interactive-book.html"
+    }
+  ]
+}
